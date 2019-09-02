@@ -11,7 +11,6 @@ app.use(requests.routes())
 
 
 async function start() {
-  const url = `mongodb+srv://Seva:Akopyan92@cluster0-alxxx.mongodb.net/test?retryWrites=true&w=majority`
   try {
     await mongoose.connect(
       'mongodb://localhost/testdb',

@@ -1,14 +1,18 @@
-# http-project
+# requests_example
 
 > A Vue.js project
 
 ## Build Setup
 
 ``` bash
-# install dependencies
+
+# Установим необходимые зависимости
 npm install
 
-# serve with hot reload at localhost:5000
+# Запускаем команду сначала в текущей папке, затем в папке client
 npm start
+
+# Фронтентд доступен по адресу localhost:8080
+# Название бд - testdb, название коллекции - requests_sample
 
 

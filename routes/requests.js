@@ -52,7 +52,7 @@ router.get('/api/rejectReasonsTimeline', async ctx => {
         "deposit_is_equipment_or_other": {$sum: "$deposit_is_equipment_or_other"}, 
         "deposit_not_commissioned": {$sum: "$deposit_not_commissioned"},
         "other": {$sum: "$other"}
-    }},
+      }},
       {$project: { _id: 0, date: "$_id",
       "client_insolvent": RemoveNull("client_insolvent"),
       "client_cannot_confirm_income": RemoveNull("client_cannot_confirm_income"),
@@ -69,7 +69,7 @@ router.get('/api/rejectReasonsTimeline', async ctx => {
       "deposit_is_equipment_or_other": RemoveNull("deposit_is_equipment_or_other"),
       "deposit_not_commissioned": RemoveNull("deposit_not_commissioned"),
       "other": RemoveNull("other"),
-    }},
+      }},
 
 
     ])
@@ -82,8 +82,6 @@ router.get('/api/rejectReasonsTimeline', async ctx => {
     ctx.body = 'error: ' + error
   }
 })
-
-//http://localhost:5000/api/rejectReasonsTimeline?from=2019-05-13T08:31:05.798&to=2019-07-11T10:15:18.016
 
 router.get('/api/amountTimeline', async ctx => {
   try {

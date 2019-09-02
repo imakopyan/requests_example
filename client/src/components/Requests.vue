@@ -19,11 +19,11 @@
             <div class="row justify-content-md-center">
               <div class="col-md-auto">
                 <label>От</label>
-                <datepicker :disabled-dates="this.disabledDates" v-model="from"></datepicker>
+                <datepicker :disabled-dates="this.disabledDatesTo" v-model="from"></datepicker>
               </div>
               <div class="col-md-auto">
                 <label>До</label>
-                <datepicker :disabled-dates="this.disabledDates" v-model="to"></datepicker>
+                <datepicker :disabled-dates="this.disabledDatesFrom" v-model="to"></datepicker>
               </div>
 
             </div>
@@ -38,7 +38,10 @@
           </div>
           <div class="w-100"></div>
           <div class="col mt-4">
-    <BarChart :chartData="chartData"/>
+            <template v-if="isLoaded">
+    <div v-if="isEmpty">Пусто</div>
+    <BarChart v-else  :chartData="chartData"/>
+            </template>
     </div>
     </div>
     </div>
@@ -59,16 +62,27 @@ export default {
     return {
       from: '',
       to: '',
-      chartData: {},
-      disabledDates: {
+      chartData: null,
+      isLoaded: false,
+      disabledDatesTo: {
+        from: new Date()
+      },
+      disabledDatesFrom: {
         from: new Date(),
-        customPredictor: function (date) {
-          // console.log((date.getDate() - this.from.getDate()))
-          if (!this.from) {
-            return true
-          }
-        }
+        to: new Date()
       }
+    }
+  },
+  computed: {
+    isEmpty: function () {
+      return this.chartData === null || this.chartData.datasets[0].data.length === 0
+    }
+  },
+  watch: {
+    from: function (newValue) {
+      const newDateTo = new Date(newValue)
+      const newDisabledDateTo = new Date(newDateTo.setDate(newDateTo.getDate() + 6))
+      this.disabledDatesFrom.to = newDisabledDateTo
     }
   },
   methods: {
@@ -95,6 +109,7 @@ export default {
               }
             ]
           }
+          this.isLoaded = true
         },
         error => {
           console.error(error)

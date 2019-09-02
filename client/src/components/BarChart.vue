@@ -9,15 +9,11 @@ export default {
       default: null
     }
   },
-  watch: {
-    chartData: function (val) {
-      if (JSON.stringify(val.labels) !== '[]') {
-        this.renderChart(
-          val,
-          { responsive: true, maintainAspectRatio: false }
-        )
-      }
-    }
+  mounted () {
+    this.renderChart(
+      this.chartData,
+      { responsive: true, maintainAspectRatio: false }
+    )
   }
 }
 </script>
